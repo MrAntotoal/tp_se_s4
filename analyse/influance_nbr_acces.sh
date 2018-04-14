@@ -28,12 +28,15 @@ declare -a liste_m4
 
 while (( $puissance <= $puissance_max ))
 do
-    echo $(( 2 ** $puissance ))
+    liste1=("" "")
+    liste2=("" "")
+    liste3=("" "")
+    liste4=("" "")
+    echo "puissance : "$(( $puissance ))
     while (( $m < $moyenne ))
     do
 	./../bin/generation_fichier $(( 2 ** $puissance )) $nbr_page -1 "entrer"
-       
-	sleep 1
+
 	r=$(./../bin/test_algo 1 $nbr_case 0 "entrer")
 	liste1=("$r" "${liste1[@]}")
 	r=$(./../bin/test_algo 2 $nbr_case 0 "entrer")
@@ -42,6 +45,11 @@ do
 	liste3=("$r" "${liste3[@]}")
 	r=$(./../bin/test_algo 4 $nbr_case 0 "entrer")
 	liste4=("$r" "${liste4[@]}")
+	if (( $puissance < 16 ))
+	then
+		
+	    sleep 1
+	fi;
 	m=$(( $m + 1 ))
 	rm entrer
     done;
