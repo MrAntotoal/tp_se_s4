@@ -26,6 +26,7 @@ declare -a liste_m4
 
 i=$puissance_case
 j=$puissance_page
+seed=0
 while (( $i <= $puissance_case_max ))
 do
     echo "puissance case : "$i
@@ -39,7 +40,7 @@ do
 	m=0
 	while (( m < $moyenne ))
 	do
-	    ./../bin/generation_fichier $(( 2 ** $5 )) $(( 1 + 2 ** $j )) -1 "entrer"
+	    ./../bin/generation_fichier $(( 2 ** $5 )) $(( 1 + 2 ** $j )) -1 "entrer" $seed
 	    r=$(./../bin/test_algo 1 $(( 2 ** $i )) 0 "entrer")
 	    #echo $r "case"$i "page"$j
 	    liste1=("$r" "${liste1[@]}")
@@ -49,11 +50,12 @@ do
 	    liste3=("$r" "${liste3[@]}")
 	    r=$(./../bin/test_algo 4 $(( 2 ** $i )) 0 "entrer")
 	    liste4=("$r" "${liste4[@]}")
-	    if (( $5 < 16 ))
-	    then
+	    seed= $(( $seed + 1 ))
+	    #if (( $5 < 16 ))
+	    #then
 		
-		sleep 1
-	    fi;
+		#sleep 1
+	    #fi;
 	    rm entrer
 	    m=$(( $m + 1 ))
 	done;

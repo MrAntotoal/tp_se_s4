@@ -3,7 +3,7 @@
 #include <time.h>
 
 void erreur(char *s){
-  fprintf(stderr,"erreur argument\n%s <nbr_acces> <nbr_page> <longueur_moyenne> <fichier_enregistrement>\n",s);
+  fprintf(stderr,"erreur argument\n%s <nbr_acces> <nbr_page> <longueur_moyenne> <fichier_enregistrement> <seed>\n",s);
 }
 
 int moyenne(int l,int nbr){
@@ -15,10 +15,12 @@ int moyenne(int l,int nbr){
 }
 
 int main(int argc,char *argv[]){
-  int nbr_acces,nbr_page,longueur_moyenne,i,ancien,l;
+  int nbr_acces,nbr_page,longueur_moyenne,i,ancien,l,seed;
   char *chemin;
   FILE *f1;
-  if(argc<4){
+  time_t temps;
+  temps=time(NULL);
+  if(argc<5){
     erreur(argv[0]);
     exit(-1);
   }
@@ -26,7 +28,10 @@ int main(int argc,char *argv[]){
   nbr_page=atoi(argv[2]);
   longueur_moyenne=atoi(argv[3]);
   chemin=argv[4];
-  srand(time(NULL));
+  seed=atoi(argv[5]);
+  temps+=seed;
+  srand(temps);
+  fprintf(stderr,"%ld seed",temps);
   
   if((f1=fopen(chemin,"w"))==NULL){
     fprintf(stderr,"erreur ouveture fichier %s",chemin);
