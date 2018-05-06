@@ -1,13 +1,14 @@
 cc=gcc
 option= -Wall
 
-all: allocation_memoire.o liste.o src/algo_remplacement.c bin obj
+all: test_algo generation courbe moyenne
+
+test_algo: allocation_memoire.o liste.o src/algo_remplacement.c bin obj
 	$(cc) $(option)  obj/allocation_memoire.o obj/liste.o src/algo_remplacement.c -o bin/test_algo
 	rm inc/*.gch
 
 generation: allocation_memoire.o src/generation_fichier.c bin obj
 	$(cc) $(option)  obj/allocation_memoire.o src/generation_fichier.c -o bin/generation_fichier
-	rm inc/*.gch
 
 courbe: obj/allocation_memoire.o src/c3_to_c2.c
 	$(cc) $(option)  obj/allocation_memoire.o src/c3_to_c2.c -o bin/c3_to_c2 -lm
