@@ -27,7 +27,7 @@ declare -a liste_m4
 
 i=$min_case
 j=$min_page
-
+seed=0
 while(( $i <= $max_case ))
 do
     echo "case actu "$i
@@ -41,7 +41,7 @@ do
 	m=0
 	while(( $m <= $moyenne))
 	do
-	    ./../bin/generation_fichier  $(( 2 ** $5))   $j -1 "entrer" $seed
+	    ./../bin/generation_fichier  $(( 2 ** $5 )) $j -1 "entrer" $seed
 	    r=$(./../bin/test_algo 1  $i  0 "entrer")
 	    #echo $r "case"$i "page"$j
 	    liste1=("$r" "${liste1[@]}")

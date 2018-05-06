@@ -19,5 +19,8 @@ genere un fichier qui corespond au resultat les algorithmes avec les case et les
 total_test_nb_acces.sh:
 lance et sauvegarde la courbe de influance_nbr_acces.sh
 
-makefile:
+pdf_rapport.sh
 generer le document latex
+
+
+ne mettais les fichier de resultat des courbe dans des dossier (sauf il vous ai  demander) sil vous plait pour eviter les probleme avec les script ou les script bash merci

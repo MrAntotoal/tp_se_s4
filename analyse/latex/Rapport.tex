@@ -37,7 +37,7 @@ Nous avons distingué 3 cas :
 On a fixé les cases et les pages à $2^{12}$.
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_12_12.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_acces_0_14_50_12_12.pdf}
 \caption{$2^{12}$ cases et $2^{12}$ pages}
 \end{figure}
 Les 4 algorithmes ont la même courbe.
@@ -52,7 +52,7 @@ Ceci explique pourquoi avec un grand nombre d'accès la courbe va tendre vers la 
 \item Les pages sont supérieures au nombre case.
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_10_12.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_acces_0_14_50_10_12.pdf}
 \caption{$2^{10}$ cases et $2^{12}$ pages}
 \end{figure}
 Comme pour le permier cas, ils tendent tous vers 1 pour la même raison.
@@ -62,7 +62,7 @@ Ici nous voyons 2 courbes distinctes : celle de l'optimal et celle des autres. C
 
 \item Le nombre de page est inférieur au nombre de case.
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_15_12.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_acces_0_14_50_15_12.pdf}
 \caption{$2^{15}$ cases et $2^{12}$ pages}
 \end{figure}
 Comme pour la courbe n1, on a des cases inutilisées. On aurait pu utiliser autant de case que de page. Cette courbe est donc similaire à la première pour les mêmes raisons.
@@ -79,9 +79,9 @@ Sinon, le nombre d'accès n'aura pas d'influence sur le taux de défaut de page, m
 Pour cette partie, nous allons fixer le nombre d'accès et faire varier le nombre de case et de page.
 Voici la courbe 3d obtenue.
 
-\includegraphics[scale=0.6]{courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50.pdf}
+\includegraphics[scale=0.6]{../courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50.pdf}
 
-\includegraphics[scale=0.6]{courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50_2.pdf}
+\includegraphics[scale=0.6]{../courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50_2.pdf}
 
 
 
@@ -90,19 +90,19 @@ Voici la courbe 3d obtenue.
 \subsubsection{analyse nombre de pages}
 Fixons le nombre de cases et faisons varier le nombre de pages
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_9.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_9.pdf}
 \caption{$2^{9}$ cases et $2^{14}$ accès}
 \end{figure}
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_10.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_10.pdf}
 \caption{$2^{10}$ cases et $2^{14}$ accès}
 \end{figure}
 
 Ces 2 courbes sont relativement similaires. Elles sont très plates  car le nombre de page est inférieur au nombre de case. Lorsque le nombre de page est supérieur au nombre de case, il n'y a plus assez de case pour stocker toutes les pages, et donc beaucoup plus de défauts de page. On peut estimer ce taux de défaut de page à $\frac{\text{nombre de page}-\text{nombre de case}}{\text{le nombre page}}$
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_12.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_12.pdf}
 \caption{$2^{12}$ cases et $2^{14}$ accès}
 \end{figure}
 
@@ -112,12 +112,12 @@ Pour cette courbe le nombre de case est toujours supérieur au nombre de page. Da
 Fixons le nombre de page et faisons varier le nombre de case. 
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_9.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_9.pdf}
 \caption{$2^{9}$ page et $2^{14}$ accès}
 \end{figure}
 
 \begin{figure}[!h]
-\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_11.pdf}
+\includegraphics[scale=1]{../courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_11.pdf}
 \caption{$2^{11}$ cases et $2^{14}$ accès}
 \end{figure}
 On remarque, pour les mêmes raisons vues précédemment, que, quand le nombre de case est inférieur au nombre de page, le taux de défaut de page est élevé. Lorsque le nombre de case est supérieur ou égal au nombre de page, la courbe est plate avec pour taux de défaut de page moyen $\frac{\text{nombre de page}}{\text{le nombre d'accès}}$.
@@ -143,14 +143,14 @@ donc  probabiliter d'avoir au moins 2 tirage du même numero est : $1-((\frac{m-1
 
 Si on traçait la courbe 3d  avec plus de points on obtiendrait cela :
 
-\includegraphics[scale=0.6]{courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5.pdf}
+\includegraphics[scale=0.6]{../courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5.pdf}
 
-\includegraphics[scale=0.6]{courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5_2.pdf}
+\includegraphics[scale=0.6]{../courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5_2.pdf}
 
 
 et si on traçait la courbe du modèle elle ressemblerait à cela
 
-\includegraphics[scale=0.6]{courbe_utiliser/courbe_model.pdf}
+\includegraphics[scale=0.6]{../courbe_utiliser/courbe_model.pdf}
 
 on remarque qu'elle corespondes parfaitement au courbe experimentale on peux donc dire que le modele est corecte
 

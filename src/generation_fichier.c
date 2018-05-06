@@ -31,7 +31,7 @@ int main(int argc,char *argv[]){
   seed=atoi(argv[5]);
   temps+=seed;
   srand(temps);
-  fprintf(stderr,"%ld seed",temps);
+  //fprintf(stderr,"%ld seed",temps);
   
   if((f1=fopen(chemin,"w"))==NULL){
     fprintf(stderr,"erreur ouveture fichier %s",chemin);
