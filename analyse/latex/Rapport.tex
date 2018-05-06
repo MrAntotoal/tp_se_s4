@@ -1,0 +1,164 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+\title{TP Note SE}
+\author{LECERF Anthony }
+\date{}
+
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Protocole}
+Objectif : Déterminer l'efficacité des algorithmes : fifo lru horloge, optimal, ainsi que l'influence de leurs paramètres (nombre d'accès, nombre de page, nombre de case).
+Pour voir l'influence des paramètres, il faut en faire varier un en fixant les autres .
+Nous allons commencer par faire varier les nombres d'accès avec plusieurs configurations de case et de page.
+Pour les cases et les page, nous allons les faire varier en fixant les autres paramètres. Nous  récupérerons des courbes 3d à partir de ces expériences que l'on pourra analyser. Pour plus de précisions, nous pourrons récupérer toutes les courbes 2d, qui forment celles-ci, afin de les analyser pour déterminer l'influence de chacun des paramètres.
+
+On utilise $2^{n}$ pour faire varier les paramètres en faisant varier $n$. Pour ces expériences on a fait varier $n$ de 0 à 14.
+
+\newpage 
+\section{analyse}
+\subsection{nombre accès}
+\subsubsection{analyse nombre accès}
+Pour ces courbes on a fait varier le nombre d'accès de $2^{0}$ a $2^{14}$
+Nous avons distingué 3 cas :
+\begin{enumerate}
+\item Le nombre page est égale au nombre de case.
+On a fixé les cases et les pages à $2^{12}$.
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_12_12.pdf}
+\caption{$2^{12}$ cases et $2^{12}$ pages}
+\end{figure}
+Les 4 algorithmes ont la même courbe.
+On remarque sur la courbe que plus le nombre d'accès est grand, plus le taux de défaut de page est proche d'une valeur comprise entre 0.2 et 0.3.
+Cette courbe peut s'expliquer de la manière suivante :
+Si le nombre d'accès est très petit et le nombre de page beaucoup plus grand, il y aura statistiquement * (voir index), à chaque fois une nouvelle page qui n'aura pas été chargée. Cela crée un défaut de page, que l'on retrouvera pratiquement sur tout les accès. Ceci explique le taux de défaut de page élevé pour les petites valeurs de nombre d'accès.
+
+Pour les mêmes raisons, à partir d'un certain nombre d'accès, toutes les pages auront été chargées. Comme il y aura le même nombre de page que de case, il ne peut plus y avoir de défaut. La courbe va donc tendre vers le $\frac{\text{nombre de page}}{\text{le nombre d'accès}}$. Dans ce cas nous avons $2^{12}/2^{14}=0.25$ ce qui correspond bien à la courbe.
+
+Ceci explique pourquoi avec un grand nombre d'accès la courbe va tendre vers la valeur $\frac{\text{nombre de page}}{\text{nombre dacces}} $ de défaut de page.
+
+\item Les pages sont supérieures au nombre case.
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_10_12.pdf}
+\caption{$2^{10}$ cases et $2^{12}$ pages}
+\end{figure}
+Comme pour le permier cas, ils tendent tous vers 1 pour la même raison.
+
+
+Ici nous voyons 2 courbes distinctes : celle de l'optimal et celle des autres. Comme il y aura plus de page que de case, il n'est pas possible de stocker toutes les pages dans les cases.Il y aura forcément, à un certain moment, des pages qui ne seront pas en ram. Il y aura des défauts de page. L'optimal minimise ces défauts de page. Ces courbes tendent vers le taux de défaut de page moyen pour ces valeurs de case et de page.
+
+\item Le nombre de page est inférieur au nombre de case.
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_acces_0_14_50_15_12.pdf}
+\caption{$2^{15}$ cases et $2^{12}$ pages}
+\end{figure}
+Comme pour la courbe n1, on a des cases inutilisées. On aurait pu utiliser autant de case que de page. Cette courbe est donc similaire à la première pour les mêmes raisons.
+\end{enumerate}
+
+\subsubsection{conclusion pour les nombres d'accès de page}
+
+Le nombre d'accès peut faire varier le taux de défaut de page si le nombre d'accès est très faible en comparaison au nombre de page. 
+Sinon, le nombre d'accès n'aura pas d'influence sur le taux de défaut de page, mais sur le temps d'exécution des algorithmes (surtout pour l'optimal).
+
+\newpage 
+\subsection{nombre d'accès, nombre de page}
+
+Pour cette partie, nous allons fixer le nombre d'accès et faire varier le nombre de case et de page.
+Voici la courbe 3d obtenue.
+
+\includegraphics[scale=0.6]{courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50.pdf}
+
+\includegraphics[scale=0.6]{courbe_utiliser/resulat_nb_case_page_0_9_0_9_13_50_2.pdf}
+
+
+
+
+
+\subsubsection{analyse nombre de pages}
+Fixons le nombre de cases et faisons varier le nombre de pages
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_9.pdf}
+\caption{$2^{9}$ cases et $2^{14}$ accès}
+\end{figure}
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_10.pdf}
+\caption{$2^{10}$ cases et $2^{14}$ accès}
+\end{figure}
+
+Ces 2 courbes sont relativement similaires. Elles sont très plates  car le nombre de page est inférieur au nombre de case. Lorsque le nombre de page est supérieur au nombre de case, il n'y a plus assez de case pour stocker toutes les pages, et donc beaucoup plus de défauts de page. On peut estimer ce taux de défaut de page à $\frac{\text{nombre de page}-\text{nombre de case}}{\text{le nombre page}}$
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_c_12.pdf}
+\caption{$2^{12}$ cases et $2^{14}$ accès}
+\end{figure}
+
+Pour cette courbe le nombre de case est toujours supérieur au nombre de page. Dans ce cas, cette courbe va tendre vers nombre de page/nombre d'accès (cette courbe correspond à la partie qui est faiblement croissante des 2 courbes précédentes).
+
+\subsubsection{analyse nombre de case }
+Fixons le nombre de page et faisons varier le nombre de case. 
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_9.pdf}
+\caption{$2^{9}$ page et $2^{14}$ accès}
+\end{figure}
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{courbe_utiliser/resultat_nb_case_page_0_12_0_12_14_50_p_11.pdf}
+\caption{$2^{11}$ cases et $2^{14}$ accès}
+\end{figure}
+On remarque, pour les mêmes raisons vues précédemment, que, quand le nombre de case est inférieur au nombre de page, le taux de défaut de page est élevé. Lorsque le nombre de case est supérieur ou égal au nombre de page, la courbe est plate avec pour taux de défaut de page moyen $\frac{\text{nombre de page}}{\text{le nombre d'accès}}$.
+
+\subsubsection{conclusion nombre d'accès, nombre de page }
+
+Lorsque le nombre de page est supérieur au nombre de case, le taux de défaut de page va augmenter significativement et suivre la formule $\frac{\text{nombre de page}-\text{nombre de case}}{\text{le nombre page}}$. Lorsque le nombre de case est inférieur au nombre de page, le taux de défaut de page est plus faible. On pourra l'estimer grâce à cette formule $\frac{\text{nombre de page}}{\text{le nombre d'accès}}$.
+
+\section{Conclusion}
+
+Sur les courbes que nous avons analysé, seul l'algorithme optimal avait parfois un taux de défaut de page plus faible. Comme cet algorithme n'est pas implémentable, nous nous intéresserons aux autres. Fifo, lru et horloge ont les mêmes valeurs moyennes de défaut de page. Nous pouvons dire qu'ils sont similaires et que leurs valeurs correspondent à :
+\begin{enumerate}
+\item si le nombre de case est inférieur au nombre de page, alors, leurs taux moyen de défaut de page est égal à $\frac{\text{nombre de page}-\text{nombre de case}}{\text{le nombre page}}$,
+\item si le nombre de case est supérieur ou égal au nombre de page, alors, ce taux de défaut de page est en moyenne égal à nombre de page/nombre d'accès $\frac{\text{nombre de page}}{\text{le nombre d'accès}}$.
+\end{enumerate}
+
+\section{Index}
+
+*Statistiquement: on veux la probabiliter d'avoir au moins 2 tirage du même numero $m$ sachant que $m\in [ 0,\text{nombre de page} ]$ avec $n$ tirage avec remise.
+donc cette probabiliter est egale a $P-(P_{0}+P_{1})$ avec $P_{0}$ la probabiliter de ne pas le tirer et $P_{1}$ cette de le prendre 1 seul fois.
+$P_{0}=(\frac{m-1}{m})^{n}$ et $P_{1}=(\frac{1}{m}) \times (\frac{m-1}{m})^{n-1} $
+donc  probabiliter d'avoir au moins 2 tirage du même numero est : $1-((\frac{m-1}{m})^{n} + (\frac{1}{m}) \times (\frac{m-1}{m})^{n-1} )$
+
+Si on traçait la courbe 3d  avec plus de points on obtiendrait cela :
+
+\includegraphics[scale=0.6]{courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5.pdf}
+
+\includegraphics[scale=0.6]{courbe_utiliser/resultat_nb_case_page_1_100_1_100_11_30_5_2.pdf}
+
+
+et si on traçait la courbe du modèle elle ressemblerait à cela
+
+\includegraphics[scale=0.6]{courbe_utiliser/courbe_model.pdf}
+
+on remarque qu'elle corespondes parfaitement au courbe experimentale on peux donc dire que le modele est corecte
+
+
+
+
+
+
+
+\end{document}
+

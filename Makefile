@@ -9,6 +9,12 @@ generation: allocation_memoire.o src/generation_fichier.c bin obj
 	$(cc) $(option)  obj/allocation_memoire.o src/generation_fichier.c -o bin/generation_fichier
 	rm inc/*.gch
 
+courbe: obj/allocation_memoire.o src/c3_to_c2.c
+	$(cc) $(option)  obj/allocation_memoire.o src/c3_to_c2.c -o bin/c3_to_c2 -lm
+
+moyenne: src/moyenne.c
+	$(cc) $(option) src/moyenne.c -o bin/moyenne
+
 liste.o: inc/liste.h src/liste.c obj
 	$(cc) $(option) inc/liste.h src/liste.c -c 
 	mv liste.o obj/liste.o

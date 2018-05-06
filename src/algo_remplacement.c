@@ -93,58 +93,41 @@ int lru(int *acces,int option,int nbr_case,int nbr_page,int nbr_acces){
   return defaut;
 }
 
-void test_tab_horloge(int *tab,int nbr_case,int nbr_page){
-  int i,nbr=0;
-  for(i=0;i<nbr_page;i++){
-    if (tab[i]==1){
-      nbr++;
-    }
-  }
-  if(nbr==nbr_case){
-    for(i=0;i<nbr_page;i++){
-      tab[i]=0;
-    }
-  }
-}
+
 
 int horloge (int *acces,int option,int nbr_case,int nbr_page,int nbr_acces){
-  int temp,defaut=0,valide[nbr_page],i,page_utiliser[nbr_page],page_a_suppr;
-  liste l,l_temp;
+  int temp,defaut=0,valide[nbr_page],i,page_a_suppr;
+  liste l;
   l=list_vide();
 
   for (i=0;i<nbr_page;i++){
       valide[i]=-1;
-      page_utiliser[i]=0;
   }
   
   for (temp=0;temp<nbr_acces;temp++){
-    if(valide[acces[temp]]!=1){
+    if(valide[acces[temp]]==-1){
       defaut++;
       if(longueur_liste(l)<nbr_case){
 	valide[acces[temp]]=1;
-	page_utiliser[acces[temp]]=1;
 	l=insere_element_liste(l,acces[temp]);
-	test_tab_horloge(page_utiliser,nbr_case,nbr_page);
       }
       else{
-	l_temp=l;
-	page_a_suppr=renvoie_sommet_liste(l_temp);
-	while(page_utiliser[page_a_suppr]!=0){
-	  l_temp=liste_sans_premier(l_temp);
-	  page_a_suppr=renvoie_sommet_liste(l_temp);
+	page_a_suppr=renvoie_sommet_liste(l);
+	while(valide[page_a_suppr]==1){
+	  l=supprimer_premier_liste(l);
+	  l=insere_element_liste(l,page_a_suppr);
+	  valide[page_a_suppr]=0;
+	  page_a_suppr=renvoie_sommet_liste(l);
 	}
+
 	valide[page_a_suppr]=-1;
-	page_utiliser[page_a_suppr]=0;
+	l=supprimer_premier_liste(l);
 	valide[acces[temp]]=1;
-	page_utiliser[acces[temp]]=1;
-	l=supprime_element(l,page_a_suppr);
 	l=insere_element_liste(l,acces[temp]);
-	test_tab_horloge(page_utiliser,nbr_case,nbr_page);
       }
     }
     else{
-      page_utiliser[acces[temp]]=1;
-      test_tab_horloge(page_utiliser,nbr_case,nbr_page);
+      valide[acces[temp]]=1;
     }
     if(option==1){
       affiche_valide(valide,nbr_page);
@@ -166,8 +149,8 @@ int est_dans_les_prochain_acces(int *acces,int temp,int nbr_acces,int val){
 }
 
 int optimal(int *acces,int option,int nbr_case,int nbr_page,int nbr_acces){
-  int temp,defaut=0,valide[nbr_page],i,page_a_suppr,j,tab[nbr_page];
-
+  int temp,defaut=0,valide[nbr_page],i,page_a_suppr,j,tab[nbr_page],cmp,case_tot;
+  case_tot=nbr_case;
   for (i=0;i<nbr_page;i++){
     valide[i]=-1;
       tab[i]=0;
@@ -181,16 +164,18 @@ int optimal(int *acces,int option,int nbr_case,int nbr_page,int nbr_acces){
 	nbr_case--;
       }
       else{
-	if(nbr_acces-temp-1<nbr_case){
+	if(nbr_acces-temp-1<case_tot){
 	  i=0;
 	  while(!(est_dans_les_prochain_acces(acces,temp+1,nbr_acces,i)==0 && valide[i]==1)){
-	    fprintf(stderr,"%d ",i);
+	    //fprintf(stderr,"%d ",i);
 	    i++;
 	  }
 	  page_a_suppr=i;
 	}
 	else{
 	  page_a_suppr=-1;
+	  
+	  
 	  for(i=0;i<nbr_page;i++){
 	    if(valide[i]==1){
 	      if(est_dans_les_prochain_acces(acces,temp+1,nbr_acces,i)==0){
@@ -203,10 +188,17 @@ int optimal(int *acces,int option,int nbr_case,int nbr_page,int nbr_acces){
 	    for(i=0;i<nbr_page;i++){
 	      tab[i]=0;
 	    }
+	    cmp=0;
 	    for(j=temp+1;j<nbr_acces;j++){
-	      if(valide[acces[j]]==1 && tab[acces[j]]==0){
-		page_a_suppr=acces[j];
-		tab[acces[j]]=1;
+	      if(cmp!=case_tot){
+		if(valide[acces[j]]==1 && tab[acces[j]]==0){
+		  page_a_suppr=acces[j];
+		  tab[acces[j]]=1;
+		  cmp++;
+		}
+	      }
+	      else{
+		break;
 	      }
 	    }
 	  }

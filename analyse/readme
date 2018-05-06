@@ -1,0 +1,23 @@
+afficher_courbe.sh :
+permet d afficher via gnuplot la courbe rentrer en parametre
+
+courbe3d_to_courbe2d.sh :
+permet d extraire toute les courbe 2d d'une courbe 3d (ne pas utiliser ce script sur les courbe generer par influance_case_page_step ou courbe_model car le script n'est fait que pour les courbe generer par influance_case_page ! )
+
+generation_courbe_model.sh :
+permet de generer une courbe avec le modele mathematique qui corespond au algorithmes
+
+influance_case_page.sh :
+genere une courbe 3d en faisans varier les cases et les pages avec (2^n)
+
+influance_case_page_step.sh :
+genere une courbe 3d en faisans varier les cases et les pages avec un step definie
+
+influance_nbr_acces.sh:
+genere un fichier qui corespond au resultat les algorithmes avec les case et les page fixe et avec les nb acces qui varie
+
+total_test_nb_acces.sh:
+lance et sauvegarde la courbe de influance_nbr_acces.sh
+
+makefile:
+generer le document latex

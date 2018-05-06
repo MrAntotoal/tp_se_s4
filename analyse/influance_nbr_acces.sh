@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-if (( $# < 4 ))
+if (( $# < 6 ))
 then
-    echo "erreur arg <puissance min> <puissance max> <moyenne> <fichier de sortie>
+    echo "erreur arg <puissance min> <puissance max> <moyenne> <fichier de sortie> <puissance case> <puissance page>
 le fichier sera formater pour gnuplot"
 else
 echo "#puissance min : "$1" puissance max :"$2" moyenne :"$3 >> $4
-nbr_page=20
-nbr_case=10
+nbr_page=$(( 2 ** $6 ))
+nbr_case=$(( 2 ** $5 ))
 afficacite=0
 puissance=$1
 puissance_max=$2
@@ -25,7 +25,7 @@ declare -a liste_m1
 declare -a liste_m2
 declare -a liste_m3
 declare -a liste_m4
-
+seed=0
 while (( $puissance <= $puissance_max ))
 do
     liste1=("" "")
@@ -35,7 +35,7 @@ do
     echo "puissance : "$(( $puissance ))
     while (( $m < $moyenne ))
     do
-	./../bin/generation_fichier $(( 2 ** $puissance )) $nbr_page -1 "entrer"
+	./../bin/generation_fichier $(( 2 ** $puissance )) $nbr_page -1 "entrer" $seed
 
 	r=$(./../bin/test_algo 1 $nbr_case 0 "entrer")
 	liste1=("$r" "${liste1[@]}")
@@ -45,21 +45,17 @@ do
 	liste3=("$r" "${liste3[@]}")
 	r=$(./../bin/test_algo 4 $nbr_case 0 "entrer")
 	liste4=("$r" "${liste4[@]}")
-	if (( $puissance < 16 ))
-	then
-		
-	    sleep 1
-	fi;
+	seed=$(( $seed + 1 ))
 	m=$(( $m + 1 ))
 	rm entrer
     done;
-    val=$(./bin/moyenne ${liste1[@]})
+    val=$(./../bin/moyenne ${liste1[@]})
     liste_m1=("${liste_m1[@]}" "$val")
-    val=$(./bin/moyenne ${liste2[@]})
+    val=$(./../bin/moyenne ${liste2[@]})
     liste_m2=("${liste_m2[@]}" "$val")
-    val=$(./bin/moyenne ${liste3[@]})
+    val=$(./../bin/moyenne ${liste3[@]})
     liste_m3=("${liste_m3[@]}" "$val")
-    val=$(./bin/moyenne ${liste4[@]})
+    val=$(./../bin/moyenne ${liste4[@]})
     liste_m4=("${liste_m4[@]}" "$val")
     m=0
     puissance=$(( $puissance + 1 ))

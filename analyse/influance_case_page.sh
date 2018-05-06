@@ -40,7 +40,7 @@ do
 	m=0
 	while (( m < $moyenne ))
 	do
-	    ./../bin/generation_fichier $(( 2 ** $5 )) $(( 1 + 2 ** $j )) -1 "entrer" $seed
+	    ./../bin/generation_fichier $(( 2 ** $5 )) $(( 2 ** $j )) -1 "entrer" $seed
 	    r=$(./../bin/test_algo 1 $(( 2 ** $i )) 0 "entrer")
 	    #echo $r "case"$i "page"$j
 	    liste1=("$r" "${liste1[@]}")
@@ -50,7 +50,7 @@ do
 	    liste3=("$r" "${liste3[@]}")
 	    r=$(./../bin/test_algo 4 $(( 2 ** $i )) 0 "entrer")
 	    liste4=("$r" "${liste4[@]}")
-	    seed= $(( $seed + 1 ))
+	    seed=$(( $seed + 1 ))
 	    #if (( $5 < 16 ))
 	    #then
 		
@@ -60,14 +60,15 @@ do
 	    m=$(( $m + 1 ))
 	done;
 	#echo ${liste1[@]}
-	val=$(./bin/moyenne ${liste1[@]})
+	val=$(./../bin/moyenne ${liste1[@]})
 	#echo "moyenne" $val "case"$i "page"$j
 	liste_m1=("${liste_m1[@]}" "$val")
-	val=$(./bin/moyenne ${liste2[@]})
+	#echo "liste :"${liste_m1[@]}""
+	val=$(./../bin/moyenne ${liste2[@]})
 	liste_m2=("${liste_m2[@]}" "$val")
-	val=$(./bin/moyenne ${liste3[@]})
+	val=$(./../bin/moyenne ${liste3[@]})
 	liste_m3=("${liste_m3[@]}" "$val")
-	val=$(./bin/moyenne ${liste4[@]})
+	val=$(./../bin/moyenne ${liste4[@]})
 	liste_m4=("${liste_m4[@]}" "$val")
 	j=$(( $j + 1 ))
     done;
@@ -90,9 +91,10 @@ do
 	while (( $j <= $puissance_page_max ))
 	do
 
-	    index=$(( $(( $i - $puissance_case )) * $(( $j - $puissance_page )) ))
+	    #=$(( $(( $i - $puissance_case )) * $(( $j - $puissance_page )) ))
+	    index=$(( $(( $(( $i - $puissance_case )) * $(( $puissance_page_max + 1 ))  )) + $(( $j - $puissance_page ))  ))
 	    if (( $a == 1 ))
-	    then 
+	    then
 		echo $(( 2 ** $i )) $(( 2 ** $j )) ${liste_m1[$index]} >> $7
 	    else
 		if (( $a == 2 ))
@@ -110,10 +112,13 @@ do
 	    
 	    j=$(( $j + 1 ))
 	done;
-	i=$(( $i +1 ))
+	i=$(( $i + 1 ))
     done;
     a=$(( $a + 1 ))
 done;
+
+fichier=$(echo "-e filename='"$7"' ")
+gnuplot $fichier script_gnu/script_case_page.gnu
 
 
 fi;
